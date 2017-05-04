@@ -1,0 +1,83 @@
+﻿
+<div layout="row">
+
+  <div flex="30"></div>
+
+  <div flex="40" layout="column">
+
+    <br/>
+    <form name="registerForm" ng-submit="registerCtrl.register(registerForm.$valid)" novalidate="novalidate">
+        <div md-whiteframe="4">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 class="md-flex" translate="form.register.title">Register</h2>
+                </div>
+            </md-toolbar>
+            <md-content layout-padding>
+                    
+                    <!-- First Name -->
+                    <md-input-container class="md-block">
+                      <label translate="form.register.firstName.label">First Name</label>
+                      <input md-no-asterisk name="firstName" ng-model="registerCtrl.user.info.firstName"
+                      minlength="3" 
+                      md-maxlength="30" 
+                      required>
+                      <div ng-messages="registerForm.firstName.$error">
+                        <div ng-message-exp="['required', 'md-maxlength', 'minlength']" 
+                        translate="form.register.firstName.error">
+                          Your First Name must be between 3 and 30 characters long.
+                        </div>
+                      </div>
+                    </md-input-container>
+
+                    <!-- Last Name -->
+                    <md-input-container class="md-block">
+                      <label translate="form.register.lastName.label">Last Name</label>
+                      <input md-no-asterisk name="lastName" ng-model="registerCtrl.user.info.lastName"
+                      minlength="3" 
+                      md-maxlength="30" 
+                      required>
+                      <div ng-messages="registerForm.lastName.$error">
+                        <div ng-message-exp="['required', 'md-maxlength', 'minlength']" 
+                        translate="form.register.lastName.error">
+                        Your Last Name must be between 3 and 30 characters long.
+                        </div>
+                      </div>
+                    </md-input-container>
+
+                  <!-- Password -->
+                  <md-input-container class="md-block">
+                      <label translate="form.register.password.label">Password</label>
+                      <input required type="password" 
+                      name="password" 
+                      ng-model="registerCtrl.user.password"
+                      minlength="3" 
+                      md-maxlength="30" />
+
+                      <div ng-messages="registerForm.password.$error" role="alert">
+                        <div ng-message-exp="['required', 'minlength', 'md-maxlength']"
+                        translate="form.register.password.error">
+                          Your password must be between 3 and 30 characters long.
+                        </div>
+                      </div>
+                  </md-input-container>
+
+                    <div>
+                      <md-button class="md-raised md-primary" 
+                      ng-disabled="registerForm.$invalid" 
+                      type="submit" translate="form.register.btn.submit">Submit</md-button>
+                    </div>
+
+            </md-content>
+                    
+            
+        </div>
+
+    </form>
+
+</div>
+
+<div flex="30"></div>
+
+</div>
+

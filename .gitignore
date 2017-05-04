@@ -29,6 +29,14 @@ build/Release
 # Dependency directories
 node_modules
 jspm_packages
+client/node_modules
+server/node_modules
+
+# Client
+client/public/vendors
+
+# Docker
+docker
 
 # Optional npm cache directory
 .npm

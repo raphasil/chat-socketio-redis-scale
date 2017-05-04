@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  sistema-redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker/redis/data:/data
+
+  sistema-mongo:
+    image: mongo
+    hostname: sistema-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./docker/mongo/data/db:/data/db
+
+  sistema-mongo-express:
+    image: "mongo-express"
+    ports:
+      - "27018:8081"
+    depends_on:
+      - sistema-mongo
+    links:
+      - sistema-mongo:mongo

@@ -1,0 +1,17 @@
+{
+    "plugins": ["node", "filenames"],
+    "extends": ["eslint:recommended", "plugin:node/recommended", "google"],
+    "rules": {
+        "node/exports-style": ["error", "module.exports"],
+        "node/no-unpublished-require": "off",
+        "padded-blocks": "off",
+        "require-jsdoc": "off",
+        "linebreak-style": "off",
+        "object-curly-spacing": ["error", "always"],
+        "curly": ["error", "multi-line"],
+        "max-len": ["error", { "code": 120, "comments": 120 }],
+        "filenames/match-regex": 1,
+        "filenames/match-exported": 1,
+        "filenames/no-index": 0
+    }
+}

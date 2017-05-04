@@ -1,0 +1,10 @@
+{
+    "extends": "angular",
+    "plugins": ["angular"],
+    "globals": { "angular": false },
+    "env": {
+        "browser": true
+    },
+    "rules": { 
+    }
+}
