@@ -8,7 +8,7 @@
   "private": true,
   "main": "./start.js",
   "scripts": {
-    "start": "gulp dev"
+    "start": "nodemon --verbose ./start.js"
   },
   "author": "Raphael Nascimento <raphasil@gmail.com>",
   "dependencies": {

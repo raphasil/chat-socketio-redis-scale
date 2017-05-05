@@ -8,7 +8,7 @@
   function socketService(socketFactory, $log, $rootScope, config) {
 
     const socket = socketFactory({
-      ioSocket: io.connect('ws://localhost:3000/'),
+      ioSocket: io.connect('http://localhost:8080/ws/chat'),
     });
 
     socket.on('connect', function() {

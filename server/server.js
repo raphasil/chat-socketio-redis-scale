@@ -12,14 +12,18 @@ const http = require('http');
 const server = http.createServer(app);
 
 // start websocket ===============================================
-ws.listen(server, { origins: '*:*' });
+ws.init(server);
 
 // start server =====================================================
-server.listen(config.SERVER_PORT, config.SERVER_HOST, function() {
+server.listen(config.SERVER_PORT, function() {
   let host = server.address().address;
   let port = server.address().port;
 
   logger.debug('listening at http://%s:%s', host, port);
+});
+
+server.on('error', function(err) {
+  logger.debug('server error ', err);
 });
 
 events.onShutdown(function() {

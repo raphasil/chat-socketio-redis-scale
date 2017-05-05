@@ -21,6 +21,7 @@ module.exports = {
   // env
   CI: process.env.NODE_ENV === 'build',
   PRODUCTION: process.env.NODE_ENV === 'production',
+  DEVELOPMENT: process.env.NODE_ENV === 'development',
 
   // cluster
   CLUSTER_NAME: process.env.wkname || 'master',

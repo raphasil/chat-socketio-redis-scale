@@ -8,7 +8,7 @@
   "private": true,
   "main": "./start.js",
   "scripts": {
-    "start": "gulp dev"
+    "start": "nodemon --verbose ./start.js"
   },
   "author": "Raphael Nascimento <raphasil@gmail.com>",
   "dependencies": {
@@ -30,6 +30,7 @@
     "helmet": "^3.4.1",
     "lodash": "^4.17.4",
     "method-override": "^2.0.2",
+    "moment": "^2.18.1",
     "morgan": "^1.8.1",
     "socket.io-client": "^1.7.3",
     "uuid": "^3.0.1",
@@ -51,7 +52,9 @@
     "gulp-inject": "^4.2.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-print": "^2.0.1",
+    "gulp-uglify": "^2.1.2",
     "nodemon": "^1.11.0",
+    "pump": "^1.0.2",
     "run-sequence": "^1.2.2"
   }
 }
