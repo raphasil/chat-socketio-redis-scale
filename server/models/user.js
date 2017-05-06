@@ -25,4 +25,9 @@ const schema = new mongo.Schema({
 
 schema.plugin(require('mongoose-bcrypt'));
 
+schema.post('save', commons.handdleError.bind('error saver user'));
+schema.post('update', commons.handdleError.bind('error update user'));
+schema.post('findOneAndUpdate', commons.handdleError.bind('error findOneAndUpdate user'));
+schema.post('findOne', commons.handdleError.bind('error findOne user'));
+
 module.exports = mongo.model('User', schema);

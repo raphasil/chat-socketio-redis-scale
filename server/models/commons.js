@@ -1,5 +1,7 @@
 'use strict';
 
+const logger = require('../infrastructure').logger;
+
 module.exports = {
   options: {
     timestamps: true,
@@ -11,5 +13,13 @@ module.exports = {
         }
       },
     },
+  },
+
+  handdleError: function(txt, error, res, next) {
+    if(error) {
+      logger.error(txt, error);
+    }
+
+    next(error, res);
   },
 };

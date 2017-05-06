@@ -29,7 +29,7 @@ const isAuthenticated = function(socket, next) {
 
 const init = function(server) {
 
-  const io = socketio(server);
+  const io = socketio(server, { path: '/ws' });
 
   io.adapter(ioredis({
     port: config.REDIS_PORT,
@@ -40,26 +40,39 @@ const init = function(server) {
   io.origins('*:*');
 
   io.on('connection', function(socket) {
-    logger.debug(`client ${socket.id} connected`);
+    logger.debug(`client default ${socket.id} connected`);
 
     socket.on('test', function(message) {
-      logger.debug(`client ${socket.id} test ${message}`);
-      socket.emit('message', 'recebi');
+      logger.debug(`client default ${socket.id} test ${message}`);
+      socket.emit('message', 'default recebi');
     });
 
     socket.on('disconnect', function() {
-      logger.debug(`client ${socket.id} disconnected`);
+      logger.debug(`client default ${socket.id} disconnected`);
     });
   });
 
-  const chat = io.of('ws/chat');
-  chat.use(isAuthenticated);
+  const ws = io.of('/ws');
+  ws.on('connection', function(socket) {
+    logger.debug(`client ws ${socket.id} connected`);
 
-  chat.on('connection', function(socket) {
-    logger.debug(`user ${socket.user.name} connected`);
+    socket.on('test', function(message) {
+      logger.debug(`client ws ${socket.id} test ${message}`);
+      socket.emit('message', 'ws recebi');
+    });
 
     socket.on('disconnect', function() {
-      logger.debug(`user ${socket.user.name} disconnected`);
+      logger.debug(`client ws ${socket.id} disconnected`);
+    });
+  });
+
+  const chat = io.of('/ws/chat');
+  chat.use(isAuthenticated);
+  chat.on('connection', function(socket) {
+    logger.debug(`user chat ${socket.user.name} connected`);
+
+    socket.on('disconnect', function() {
+      logger.debug(`user chat ${socket.user.name} disconnected`);
     });
   });
 

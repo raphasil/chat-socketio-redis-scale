@@ -9,7 +9,7 @@
     let vm = this;
     vm.pageClass = 'page-login';
     vm.user = {
-      email: '',
+      username: '',
       password: '',
     };
 
@@ -17,7 +17,7 @@
       if (!valid) return;
 
       authService
-      .login(vm.user.email, vm.user.password)
+      .login(vm.user.username, vm.user.password)
       .then(function(user) {
         $log.debug(user);
         notificationService.success('form.login.success');

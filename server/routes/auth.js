@@ -2,21 +2,18 @@
 
 const createError = require('../utils').error.createError;
 const middleware = require('./middleware');
-const userService = require('../services').userService;
+const authService = require('../services').authService;
 const router = require('express')();
-const endpoint = '/api/v1/users';
+const endpoint = '/api/v1/auths';
 
 const configure = function(app) {
     router.route('/')
         .get(middleware.isAuthenticated, function(req, res, next) {
-            userService.all(req.params, function(err, users) {
-                if(err) return next(err);
-                res.send({ users: users });
-            });
+            res.send({ user: req.user });
         })
         .post(function(req, res, next) {
-            userService.create(req.body, function(err, user) {
-                if(err || !user) return next(createError('Service Error', 500, err));
+            authService.login(req.body, function(err, user) {
+                if(err || !user) return next(createError('username or password invalid', 500, err));
                 res.send({ user: user });
             });
         });

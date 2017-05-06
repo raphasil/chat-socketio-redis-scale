@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const path = require('path');
 const helmet = require('helmet');
-const winston = require('winston');
 const expressWinston = require('express-winston');
 const cookieParser = require('cookie-parser');
 const routes = require('../routes');
@@ -59,9 +58,10 @@ app.use(expressWinston.logger({
 }));
 
 // routes ==================================================
-routes.init(app); // pass our application into our routes
+routes.configure(app); // pass our application into our routes
 
 // morgan ====================================================
+expressWinston.requestWhitelist.push('body');
 app.use(expressWinston.errorLogger({
   transports: logger.custom.transports,
 }));

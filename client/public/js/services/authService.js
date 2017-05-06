@@ -6,14 +6,14 @@
   authService.$inject = ['$http', '$rootScope', '$q', '$log', 'cacheService', 'config'];
 
   function authService($http, $rootScope, $q, $log, cacheService, config) {
-    const url = config.host + '/api/v1/auth';
+    const url = config.api + '/api/v1/auths';
 
     const self = {};
 
-    self.login = function(email, password) {
+    self.login = function(username, password) {
       let deferred = $q.defer();
 
-      let data = { email: email, password: password };
+      let data = { username: username, password: password };
 
       deferred.notify('iniciando login');
 

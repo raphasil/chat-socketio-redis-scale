@@ -1,24 +1,24 @@
 'use strict';
 
-// const config = require('./configs');
 const logger = require('./infrastructure/logger');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const nodemon = require('gulp-nodemon');
-const uglify = require('gulp-uglify');
-const minifier = require('gulp-uglify/minifier');
 const inject = require('gulp-inject');
 const concat = require('gulp-concat');
+const uglify = require('uglify-js');
+const minifier = require('gulp-uglify/minifier');
 const print = require('gulp-print');
 const del = require('del');
 const runSequence = require('run-sequence');
 
 const paths = {
     vendors: './public/vendors/',
-    build: './public/build/',
+    build: './public/dist/',
     cssVendors: './public/vendors/css',
     jsVendors: './public/vendors/js',
-    jsApp: './public/build/js',
+    jsApp: './public/dist/js',
+    jsSourceApp: './public/js',
 };
 
 const files = {
@@ -56,7 +56,7 @@ gulp.task('lint', () => {
         .pipe(eslint.failAfterError());
 });
 
-gulp.task('clean-vendors', function() {
+gulp.task('clean', function() {
     return del([paths.vendors, paths.jsApp]);
 });
 
@@ -107,6 +107,7 @@ gulp.task('setup-prod-app-js', function() {
     return target
         .pipe(inject(
             jsApp.pipe(print())
+                .pipe(minifier({}, uglify))
                 .pipe(concat('app.js'))
                 .pipe(gulp.dest(paths.jsApp))
             , { name: 'app_js', relative: true }))
@@ -133,7 +134,7 @@ gulp.task('nodemon', function() {
 
 gulp.task('dev', function(callback) {
 
-    runSequence('clean-vendors',
+    runSequence('clean',
         'setup-app-js',
         'setup-vendors-js',
         'setup-vendors-css',
@@ -142,12 +143,17 @@ gulp.task('dev', function(callback) {
 
 });
 
+gulp.task('clean-prod-source', function() {
+    return del([paths.jsSourceApp]);
+});
+
 gulp.task('setup-prod', function(callback) {
 
-    runSequence('clean-vendors',
+    runSequence('clean',
         'setup-prod-app-js',
         'setup-vendors-js',
         'setup-vendors-css',
+        'clean-prod-source',
         callback);
 
 });

@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app', ['common.core', 'common.ui'])
-        .constant('config', { host: 'http://localhost:3000' })
+        .constant('config', { ws: 'http://localhost:8080', api: '' })
         .config(configRoute)
         .run(run);
 

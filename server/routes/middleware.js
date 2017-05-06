@@ -1,6 +1,6 @@
 'use strict';
 
-const error = require('../utils').error;
+const createError = require('../utils').error.createError;
 const authService = require('../services').authService;
 
 const AUTH_TYPE = 'Bearer ';
@@ -12,13 +12,13 @@ const isAuthenticated = function(req, res, next) {
         const token = authorization.replace(AUTH_TYPE, '');
 
         authService.isAuthenticated(token, function(err, user) {
-            if (err) return next(error.createError('Authentication error', 401, err));
+            if (err) return next(createError('Authentication error', 401, err));
             req.user = user;
             next();
         });
 
     } else {
-        return next(error.createError('Authentication error', 401));
+        return next(createError('Authentication error', 401));
     }
 };
 
