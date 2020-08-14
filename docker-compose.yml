@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+
+  sistema-nginx:
+    build: ./nginx
+    container_name: sistema-nginx
+    links:
+        - sistema-front-end:sistema-front-end
+        - sistema-back-end:sistema-back-end
+    ports:
+        - "8080:80"    
+
+  sistema-front-end:
+    build: ./client
+    hostname: sistema-front-end
+    container_name: sistema-front-end 
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+
+  sistema-back-end:
+    build: ./server
+    hostname: sistema-back-end
+    container_name: sistema-back-end
+    ports:
+      - "3000:3000"
+    depends_on:
+      - sistema-mongo
+      - sistema-redis
+    links:
+      - sistema-mongo:sistema-mongo
+      - sistema-redis:sistema-redis
+    environment:
+      - NODE_ENV=development
+      - REDIS_HOST=sistema-redis
+      - REDIS_PASSWORD=admin@1234
+      - MONGODB_HOST=sistema-mongo    
+
+  sistema-redis:
+    image: redis:alpine
+    hostname: sistema-redis
+    container_name: sistema-redis    
+    volumes:
+      - ./docker/redis/data:/data
+    command: redis-server --requirepass admin@1234
+
+  sistema-mongo:
+    image: mongo
+    hostname: sistema-mongo
+    container_name: sistema-mongo
+    volumes:
+      - ./docker/mongo/data/db:/data/db
+
+  sistema-mongo-express:
+    image: mongo-express
+    hostname: sistema-mongo-express
+    container_name: sistema-mongo-express    
+    ports:
+      - "27018:8081"
+    depends_on:
+      - sistema-mongo
+    links:
+      - sistema-mongo:mongo
+

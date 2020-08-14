@@ -1,0 +1,48 @@
+﻿<div
+layout="column"
+layout-align="center center"
+>
+
+    <br/>
+    <form name="loginForm" ng-submit="loginCtrl.login(loginForm.$valid)" novalidate="novalidate">
+        <div md-whiteframe="4" >
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 class="md-flex" translate="form.login.title">Login</h2>
+                </div>
+            </md-toolbar>
+            <md-content layout-padding>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label translate="form.login.username.label">Username</label>
+                        <md-icon><ng-md-icon icon="person" size="24"></ng-md-icon></md-icon>
+                        <input name="username" ng-model="loginCtrl.user.username" type="text" ng-required="true">
+
+                        <div ng-messages="loginForm.username.$error">
+                            <div ng-message="required" translate="form.error.required">This field is required</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block">
+                        <label translate="form.login.password.label">Password</label>
+                        <md-icon><ng-md-icon icon="lock" size="24"></ng-md-icon></md-icon>
+                        <input name="password" ng-model="loginCtrl.user.password" type="password" ng-required="true">
+
+                        <div ng-messages="loginForm.password.$error">
+                            <div ng-message="required" translate="form.error.required">This field is required</div>
+                        </div>
+                    </md-input-container>
+
+                    <div layout="row">
+                        <md-button class="md-raised md-primary" ng-disabled="loginForm.$invalid" translate="form.login.btn.login" aria-label="login" translate-attr-aria-label="form.login.btn.login" type="submit">Login</md-button>
+                        <md-button class="md-raised md-primary" ng-href="/register" translate="form.login.btn.register" aria-label="register" translate-attr-aria-label="form.login.btn.register">Register</md-button>
+                    </div>
+
+            </md-content>
+                    
+            
+        </div>
+
+    </form>
+
+</div>

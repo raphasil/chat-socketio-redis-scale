@@ -1,0 +1,83 @@
+<md-toolbar layout="row" md-whiteframe="4" ng-controller="TobBarController as tobBarCrl" class="main-nav">
+    <div class="md-toolbar-tools">
+        <h2>          
+          <a ng-href="/" class="md-button md-default-theme" md-button="">Sistema</a>
+        </h2>
+
+        <span flex="10"></span>
+        
+        <a ng-href="/" class="md-button md-default-theme" md-button="" translate="menu.top.about">ABOUT</a>
+
+        <span flex></span>
+
+        <md-menu-bar>
+
+            <!-- User Menu -->
+            <md-menu ng-show="root.isUserLoggedIn()" md-position-mode="left bottom">
+                <md-button class="user-button" ng-click="$mdOpenMenu()"
+                            aria-label="User settings"
+                            translate translate-attr-aria-label="menu.top.user.settings">
+                    <div layout="row" layout-align="space-between center">
+                        <div class="avatar-wrapper">                            
+                            <md-icon md-menu-align-target class="avatar"><ng-md-icon icon="account_circle" size="24"></ng-md-icon></md-icon>
+                            <md-icon md-font-icon ng-class="tobBarCrl.userStatus.icon"
+                                        ng-style="{'color': tobBarCrl.userStatus.color }"
+                                        class="icon status s16">
+                            </md-icon>
+                        </div>
+                        <span class="username" hide-xs>{{tobBarCrl.getUserLoginName()}}</span>
+                        <md-icon md-font-icon="icon-chevron-down"
+                                    class="icon s16" hide-xs></md-icon>
+                    </div>
+                </md-button>
+
+                <md-menu-content width="3">
+                    <md-menu-item class="md-indent" ng-click="tobBarCrl.me()">
+                        <md-icon md-font-icon="icon-account" class="icon"></md-icon>
+                        <md-button translate="menu.top.user.profile">My Profile</md-button>
+                    </md-menu-item>
+
+                    <md-menu-item class="md-indent" ui-sref="app.mail">
+                        <md-icon md-font-icon="icon-email" class="icon"></md-icon>
+                        <md-button translate="menu.top.user.inbox">Inbox</md-button>
+                    </md-menu-item>
+
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon ng-class="tobBarCrl.userStatus.icon"
+                                    ng-style="{'color': tobBarCrl.userStatus.color }" class="icon"></md-icon>
+                        <md-menu id="user-status-menu">
+                            <md-button ng-click="$mdOpenMenu()" class="status" ng-class="tobBarCrl.userStatus.class">
+                                {{tobBarCrl.userStatus.title}}
+                            </md-button>
+                            <md-menu-content width="2">
+                                <md-menu-item class="status md-indent"
+                                                ng-class="{'selected': status === tobBarCrl.userStatus}"
+                                                ng-repeat="status in tobBarCrl.userStatusOptions">
+                                    <md-icon md-font-icon="{{status.icon}}" ng-style="{'color': status.color }"
+                                                class="icon"></md-icon>
+                                    <md-button ng-click="tobBarCrl.setUserStatus(status)">
+                                        {{status.title}}
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </md-menu-item>
+
+                    <md-menu-divider></md-menu-divider>
+
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon="icon-logout" class="icon"></md-icon>
+                        <md-button ng-click="tobBarCrl.logout()" translate="menu.top.logout">Logout</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+
+            <!-- Login Button -->
+            <md-button ng-href="/login" ng-hide="root.isUserLoggedIn()" translate="menu.top.login">Login</md-button>
+
+        </md-menu-bar>
+
+
+        
+    </div>
+</md-toolbar>
